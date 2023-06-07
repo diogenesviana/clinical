@@ -1,7 +1,7 @@
-package br.com.clinical.project.service;
+package br.com.clinical.project.service.material;
 
-import br.com.clinical.project.model.Material;
-import br.com.clinical.project.repository.MaterialRepository;
+import br.com.clinical.project.model.material.Material;
+import br.com.clinical.project.repository.material.MaterialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
