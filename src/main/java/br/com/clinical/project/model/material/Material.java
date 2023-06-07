@@ -1,4 +1,4 @@
-package br.com.clinical.project.model;
+package br.com.clinical.project.model.material;
 
 import jakarta.persistence.*;
 import lombok.Data;
