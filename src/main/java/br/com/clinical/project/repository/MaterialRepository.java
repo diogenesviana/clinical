@@ -1,6 +1,6 @@
-package repository;
+package br.com.clinical.project.repository;
 
-import model.Material;
+import br.com.clinical.project.model.Material;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
