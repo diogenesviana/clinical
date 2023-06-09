@@ -1,6 +1,7 @@
 package br.com.clinical.project.controller.material;
 
 import br.com.clinical.project.model.material.Material;
+import br.com.clinical.project.service.material.dto.MaterialRequestDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,9 @@ public class MaterialController {
     MaterialService materialService;
 
     @GetMapping("/{materialId}")
-    public ResponseEntity<Optional<Material>> findById (@PathVariable Long materialId){
-        Optional<Material> byId = materialService.findById(materialId);
-        return ResponseEntity.ok(byId);
+    public ResponseEntity<MaterialRequestDTO> findById (@PathVariable Long materialId){
+        MaterialRequestDTO dto = materialService.findById(materialId);
+        return ResponseEntity.ok(dto);
     }
 
 }
