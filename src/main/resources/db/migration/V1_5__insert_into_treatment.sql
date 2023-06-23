@@ -1,8 +1,8 @@
-INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('1', 'RELAXING_MASSAGE', 'MASSAGEM_RELAXANTE');
-INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('2', 'DEEP_TISSUE_MASSAGE', 'MASSAGEM_DEEP_TISSUE');
-INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('3', 'FOOT_REFLEXOLOGY_SESSION', 'SESSÃO_DE_REFLEXOLOGIA_PODAL');
-INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('4', 'CLINICAL_AROMATHERAPY_SESSION', 'SESSÃO_DE_AROMATERAPIA_CLINICA');
-INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('5', 'THAI_MASSAGE_SESSION', 'SESSÃO_DE_THAI_MASSAGEM');
-INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('6', 'ACUPUNCTURE_SESSION', 'SESSÃO_DE_ACUPUNTURA');
-INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('7', 'BACH_FLOWER_THERAPY_CONSULTATION', 'CONSULTA_TEARAPIA_FLORAIS_DE_BACH');
-INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('8', 'INTEGRATED_NATUROLOGY_CONSULTATION ', 'CONSULTA_INTEGRADA_DE_NATUROLOGIA');
+INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('1', 'RELAXING_MASSAGE', 'Massagem Relaxante');
+INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('2', 'DEEP_TISSUE_MASSAGE', 'Massagem Deep Tissue');
+INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('3', 'FOOT_REFLEXOLOGY_SESSION', 'Sessão de Reflexologia Podal');
+INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('4', 'CLINICAL_AROMATHERAPY_SESSION', 'Sessão de Aromaterapia Clinica');
+INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('5', 'THAI_MASSAGE_SESSION', 'Sessão de Thai Massagem');
+INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('6', 'ACUPUNCTURE_SESSION', 'Sessão de Acupuntura');
+INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('7', 'BACH_FLOWER_THERAPY_CONSULTATION', 'Consulta Terapia Floraia de Bach');
+INSERT INTO `db_clinical`.`treatment` (`id_treatment`, `tx_treatment`, `tx_description`) VALUES ('8', 'INTEGRATED_NATUROLOGY_CONSULTATION ', 'Consulta Integrada Naturologia');
