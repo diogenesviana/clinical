@@ -2,6 +2,7 @@ package br.com.clinical.project.service.material;
 
 import br.com.clinical.project.model.material.Material;
 import br.com.clinical.project.repository.material.MaterialRepository;
+import br.com.clinical.project.service.exception.BusinessException;
 import br.com.clinical.project.service.exception.ObjectNotFoundException;
 import br.com.clinical.project.service.material.dto.MaterialRequestDTO;
 import org.modelmapper.ModelMapper;
@@ -30,8 +31,14 @@ public class MaterialService {
     }
 
     public MaterialRequestDTO create(MaterialRequestDTO materialRequestDTO){
-        Material material = materialRepository.save(materialRequestDTO.toEntity(modelMapper, materialRequestDTO));
-        return MaterialRequestDTO.toDto(modelMapper, material);
+        Optional<Material> materialOptional = materialRepository.findByTxMaterial(materialRequestDTO.getTxMaterial());
+        if(materialOptional.isEmpty()){
+            Material material = materialRepository.save(materialRequestDTO.toEntity(modelMapper, materialRequestDTO));
+            return MaterialRequestDTO.toDto(modelMapper, material);
+        } else {
+            throw new BusinessException(materialOptional.get().getTxMaterial() + " já existe no sistema");
+        }
+
     }
 
     public MaterialRequestDTO update(Long idMaterial, MaterialRequestDTO materialRequestDTO){

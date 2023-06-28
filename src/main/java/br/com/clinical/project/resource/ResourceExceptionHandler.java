@@ -1,5 +1,6 @@
 package br.com.clinical.project.resource;
 
+import br.com.clinical.project.service.exception.BusinessException;
 import br.com.clinical.project.service.exception.ObjectNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -18,5 +19,12 @@ public class ResourceExceptionHandler {
         StandardError error =
                 new StandardError(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<StandardError>objectNotFound(BusinessException ex, HttpServletRequest request){
+        StandardError error =
+                new StandardError(LocalDateTime.now(), HttpStatus.UNPROCESSABLE_ENTITY.value(), ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
     }
 }
