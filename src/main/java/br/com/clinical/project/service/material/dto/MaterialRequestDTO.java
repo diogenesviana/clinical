@@ -15,11 +15,11 @@ public class MaterialRequestDTO {
     private BigDecimal qtMaterial;
 
 
-    public MaterialRequestDTO toDto(ModelMapper modelMapper, Material material){
+    public static MaterialRequestDTO toDto(ModelMapper modelMapper, Material material){
         return modelMapper.map(material, MaterialRequestDTO.class);
     }
 
-    public List<MaterialRequestDTO> listToDTO(ModelMapper modelMapper, List<Material> materials) {
+    public static List<MaterialRequestDTO> listToDTO(ModelMapper modelMapper, List<Material> materials) {
         return materials.stream()
                 .map(material -> toDto(modelMapper, material))
                 .toList();
