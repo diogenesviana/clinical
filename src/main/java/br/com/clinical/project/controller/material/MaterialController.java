@@ -3,6 +3,7 @@ package br.com.clinical.project.controller.material;
 import br.com.clinical.project.model.material.Material;
 import br.com.clinical.project.service.material.dto.MaterialRequestDTO;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +21,19 @@ public class MaterialController {
     @Autowired
     MaterialService materialService;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @GetMapping("/{idMaterial}")
     public ResponseEntity<MaterialRequestDTO> findById (@PathVariable Long idMaterial){
-        MaterialRequestDTO dto = materialService.findById(idMaterial);
-        return ResponseEntity.ok(dto);
+        Material material = materialService.findById(idMaterial);
+        return ResponseEntity.ok(MaterialRequestDTO.toDto(modelMapper, material));
     }
 
     @GetMapping
     public ResponseEntity<List<MaterialRequestDTO>> findAll(){
-        List<MaterialRequestDTO> dtoList = materialService.findAll();
-        return ResponseEntity.ok(dtoList);
+        List<Material> materials = materialService.findAll();
+        return ResponseEntity.ok(MaterialRequestDTO.listToDTO(modelMapper, materials));
     }
 
     @PostMapping
@@ -41,8 +45,7 @@ public class MaterialController {
 
     @PutMapping("/{idMaterial}")
     public ResponseEntity<MaterialRequestDTO> update(@PathVariable Long idMaterial, @RequestBody MaterialRequestDTO materialRequestDTO){
-        MaterialRequestDTO dto = materialService.update(materialId, materialRequestDTO);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(materialService.update(idMaterial, materialRequestDTO));
     }
 
 }
