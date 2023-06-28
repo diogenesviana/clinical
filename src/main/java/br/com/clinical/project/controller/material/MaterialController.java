@@ -54,4 +54,11 @@ public class MaterialController {
         return ResponseEntity.ok(materialService.update(idMaterial, materialRequestDTO));
     }
 
+    @DeleteMapping("/{idMaterial}")
+    public ResponseEntity<Void> delete (Long idMaterial){
+        materialService.delete(idMaterial);
+       return ResponseEntity.ok().build();
+    }
+
+
 }

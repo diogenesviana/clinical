@@ -52,4 +52,9 @@ public class MaterialService {
             throw new ObjectNotFoundException("Material não encontrado");
         }
     }
+
+    public void delete (Long idMaterial){
+        Material material = findById(idMaterial);
+        materialRepository.delete(material);
+    }
 }
