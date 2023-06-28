@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import br.com.clinical.project.service.material.MaterialService;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -37,10 +39,14 @@ public class MaterialController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> create (@RequestBody MaterialRequestDTO materialRequestDTO){
-        materialService.create(materialRequestDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<MaterialRequestDTO> create (@RequestBody MaterialRequestDTO materialRequestDTO){
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{idMaterial}")
+                .buildAndExpand(materialService.create(materialRequestDTO))
+                .toUri();
+        return ResponseEntity.created(uri).build();
+
     }
 
     @PutMapping("/{idMaterial}")

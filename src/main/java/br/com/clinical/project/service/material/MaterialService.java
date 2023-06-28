@@ -29,8 +29,9 @@ public class MaterialService {
         return materialRepository.findAll();
     }
 
-    public void create(MaterialRequestDTO materialRequestDTO){
-        materialRepository.save(materialRequestDTO.toEntity(modelMapper, materialRequestDTO));
+    public MaterialRequestDTO create(MaterialRequestDTO materialRequestDTO){
+        Material material = materialRepository.save(materialRequestDTO.toEntity(modelMapper, materialRequestDTO));
+        return MaterialRequestDTO.toDto(modelMapper, material);
     }
 
     public MaterialRequestDTO update(Long idMaterial, MaterialRequestDTO materialRequestDTO){
