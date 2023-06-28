@@ -43,7 +43,7 @@ public class MaterialController {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{idMaterial}")
-                .buildAndExpand(materialService.create(materialRequestDTO))
+                .buildAndExpand(MaterialRequestDTO.toDto(modelMapper, materialService.create(materialRequestDTO)))
                 .toUri();
         return ResponseEntity.created(uri).build();
 
@@ -51,7 +51,8 @@ public class MaterialController {
 
     @PutMapping("/{idMaterial}")
     public ResponseEntity<MaterialRequestDTO> update(@PathVariable Long idMaterial, @RequestBody MaterialRequestDTO materialRequestDTO){
-        return ResponseEntity.ok(materialService.update(idMaterial, materialRequestDTO));
+        Material material = materialService.update(idMaterial, materialRequestDTO);
+        return ResponseEntity.ok(MaterialRequestDTO.toDto(modelMapper, material));
     }
 
     @DeleteMapping("/{idMaterial}")
