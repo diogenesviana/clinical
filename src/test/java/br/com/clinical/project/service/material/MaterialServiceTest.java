@@ -1,22 +1,20 @@
 package br.com.clinical.project.service.material;
 
-import br.com.clinical.project.model.material.Material;
-import br.com.clinical.project.repository.material.MaterialRepository;
-import br.com.clinical.project.service.exception.BusinessException;
-import br.com.clinical.project.service.exception.ObjectNotFoundException;
-import br.com.clinical.project.service.material.dto.MaterialRequestDTO;
-import org.junit.jupiter.api.Assertions;
+import br.com.clinical.project.domain.model.material.Material;
+import br.com.clinical.project.domain.service.material.MaterialService;
+import br.com.clinical.project.domain.repository.material.MaterialRepository;
+import br.com.clinical.project.api.exceptionhandler.BusinessException;
+import br.com.clinical.project.api.exceptionhandler.ObjectNotFoundException;
+import br.com.clinical.project.api.model.material.MaterialRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
