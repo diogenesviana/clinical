@@ -1,13 +1,17 @@
 package br.com.clinical.project.service.material.dto;
 
 import br.com.clinical.project.model.material.Material;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MaterialRequestDTO {
 
     private Long idMaterial;
