@@ -15,6 +15,7 @@ import java.util.Optional;
 @Service
 public class MaterialService {
 
+    public static final String MATERIAL_NOT_FOUND = "Material não encontrado";
     @Autowired
     MaterialRepository materialRepository;
 
@@ -23,33 +24,30 @@ public class MaterialService {
 
     public Material findById(Long idMaterial){
         Optional<Material> material = materialRepository.findById(idMaterial);
-            return material.orElseThrow(() -> new ObjectNotFoundException("Material não encontrado"));
+            return material.orElseThrow(() -> new ObjectNotFoundException(MATERIAL_NOT_FOUND));
+    }
+    public Optional<Material> findByTxMaterial(String txMaterial){
+        return materialRepository.findByTxMaterial(txMaterial);
     }
 
     public List<Material> findAll(){
         return materialRepository.findAll();
     }
 
-    public MaterialRequestDTO create(MaterialRequestDTO materialRequestDTO){
-        Optional<Material> materialOptional = materialRepository.findByTxMaterial(materialRequestDTO.getTxMaterial());
-        if(materialOptional.isEmpty()){
-            Material material = materialRepository.save(materialRequestDTO.toEntity(modelMapper, materialRequestDTO));
-            return MaterialRequestDTO.toDto(modelMapper, material);
+    public Material create(MaterialRequestDTO materialRequestDTO) {
+        Optional<Material> materialOptional = findByTxMaterial(materialRequestDTO.getTxMaterial());
+        if (materialOptional.isEmpty()) {
+            return materialRepository.save(materialRequestDTO.toEntity(modelMapper, materialRequestDTO));
         } else {
             throw new BusinessException(materialOptional.get().getTxMaterial() + " já existe no sistema");
         }
 
     }
 
-    public MaterialRequestDTO update(Long idMaterial, MaterialRequestDTO materialRequestDTO){
-        Optional<Material> materialOptional = materialRepository.findById(idMaterial);
-        if(materialOptional.isPresent()){
-            Material material = materialOptional.get();
-            materialRequestDTO.setIdMaterial(material.getIdMaterial());
-            materialRepository.save(materialRequestDTO.toEntity(modelMapper, materialRequestDTO));
-            return materialRequestDTO;
-        } else {
-            throw new ObjectNotFoundException("Material não encontrado");
-        }
+    public Material update(Long idMaterial, MaterialRequestDTO materialRequestDTO){
+        Material material = findById(idMaterial);
+        materialRequestDTO.setIdMaterial(material.getIdMaterial());
+        material = materialRequestDTO.toEntity(modelMapper, materialRequestDTO);
+        return materialRepository.save(material);
     }
 }

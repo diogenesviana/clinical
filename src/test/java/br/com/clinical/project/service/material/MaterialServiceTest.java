@@ -2,6 +2,8 @@ package br.com.clinical.project.service.material;
 
 import br.com.clinical.project.model.material.Material;
 import br.com.clinical.project.repository.material.MaterialRepository;
+import br.com.clinical.project.service.exception.BusinessException;
+import br.com.clinical.project.service.exception.ObjectNotFoundException;
 import br.com.clinical.project.service.material.dto.MaterialRequestDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class MaterialServiceTest {
@@ -27,6 +30,8 @@ class MaterialServiceTest {
     public static final long ID_MATERIAL = 1L;
     public static final String TX_MATERIAL = "Caneta";
     public static final BigDecimal QT_MATERIAL = BigDecimal.valueOf(20);
+    public static final String MATERIAL_NOT_FOUND = "Material não encontrado";
+    public static final String EXISTS = " já existe no sistema";
     @InjectMocks
     private MaterialService materialService;
 
@@ -48,37 +53,92 @@ class MaterialServiceTest {
 
     @Test
     void whenFindByIdThenReturnMaterialInstance() {
-        Mockito.when(materialRepository.findById(Mockito.anyLong())).thenReturn(materialOptional);
+        when(materialRepository.findById(anyLong())).thenReturn(materialOptional);
         Material response = materialService.findById(ID_MATERIAL);
 
-        Assertions.assertNotNull(response);
-        Assertions.assertEquals(Material.class, response.getClass());
-        Assertions.assertEquals(ID_MATERIAL, response.getIdMaterial());
-        Assertions.assertEquals(TX_MATERIAL, response.getTxMaterial());
-        Assertions.assertEquals(QT_MATERIAL, response.getQtMaterial());
+        assertNotNull(response);
+        assertEquals(Material.class, response.getClass());
+        assertEquals(ID_MATERIAL, response.getIdMaterial());
+        assertEquals(TX_MATERIAL, response.getTxMaterial());
+        assertEquals(QT_MATERIAL, response.getQtMaterial());
+
 
 
     }
 
     @Test
-    void findAll() {
-        Mockito.when(materialRepository.findAll()).thenReturn(Collections.singletonList(material));
-        List<Material> materials = materialService.findAll();
-        //Assertions.assertEquals(List<Material> material, materials);
+    void whenFindByIdThenReturnException() {
+        when(materialRepository.findById(anyLong())).thenThrow(new ObjectNotFoundException(MATERIAL_NOT_FOUND));
+
+        try {
+            materialService.findById(2L);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals(MATERIAL_NOT_FOUND, ex.getMessage());
+        }
     }
 
     @Test
-    void create() {
+    void whenCallFindAllThenGetListMaterial() {
+        when(materialRepository.findAll()).thenReturn(List.of(material));
+        List<Material> response = materialService.findAll();
+
+        assertEquals(1, response.size());
+        assertEquals(Material.class, response.get(0).getClass());
+        assertNotNull(response);
+        assertEquals(ID_MATERIAL, material.getIdMaterial());
     }
 
     @Test
-    void update() {
+    void whenCreateThenReturnSuccess() {
+        when(materialRepository.save(any())).thenReturn(material);
+        Material response = materialService.create(materialRequestDTO);
+
+        assertNotNull(response);
+        assertEquals(Material.class, response.getClass());
+        assertEquals(ID_MATERIAL, response.getIdMaterial());
+
+    }
+
+    @Test
+    void whenCreateThenReturnNotSuccess() {
+        when(materialRepository.findByTxMaterial(anyString())).thenReturn(materialOptional);
+
+        try{
+            Material response = materialService.create(materialRequestDTO);
+        } catch(Exception ex) {
+            assertEquals(BusinessException.class, ex.getClass());
+            assertEquals(material.getTxMaterial() + EXISTS, ex.getMessage());
+        }
+    }
+
+    @Test
+    void whenUpdateThenReturnSuccess() {
+        when(materialRepository.save(any())).thenReturn(material);
+        when(materialRepository.findById(ID_MATERIAL)).thenReturn(materialOptional);
+        Material response = materialService.update(material.getIdMaterial(), materialRequestDTO);
+
+        assertNotNull(response);
+        assertEquals(Material.class, response.getClass());
+        assertEquals(ID_MATERIAL, response.getIdMaterial());
+        assertEquals(TX_MATERIAL, response.getTxMaterial());
+    }
+
+    @Test
+    void whenUpdateThenReturnNotSuccess() {
+        when(materialRepository.findById(anyLong())).thenThrow(new ObjectNotFoundException(MATERIAL_NOT_FOUND));
+
+        try{
+            Material response = materialService.update(material.getIdMaterial(), materialRequestDTO);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals(MATERIAL_NOT_FOUND, ex.getMessage());
+        }
     }
 
     private void startMaterial(){
         material = new Material(ID_MATERIAL, TX_MATERIAL, QT_MATERIAL);
         materialOptional = Optional.of(new Material(ID_MATERIAL, TX_MATERIAL, QT_MATERIAL));
         materialRequestDTO = new MaterialRequestDTO(ID_MATERIAL, TX_MATERIAL, QT_MATERIAL);
-
     }
 }
