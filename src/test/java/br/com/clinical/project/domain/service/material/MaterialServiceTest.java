@@ -1,4 +1,4 @@
-package br.com.clinical.project.service.material;
+package br.com.clinical.project.domain.service.material;
 
 import br.com.clinical.project.domain.model.material.Material;
 import br.com.clinical.project.domain.service.material.MaterialService;
