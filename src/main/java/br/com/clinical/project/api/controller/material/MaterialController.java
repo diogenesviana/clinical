@@ -2,6 +2,7 @@ package br.com.clinical.project.api.controller.material;
 
 import br.com.clinical.project.domain.model.material.Material;
 import br.com.clinical.project.api.model.material.MaterialRequestDTO;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class MaterialController {
 
     }
 
+    @Transactional
     @PutMapping("/{idMaterial}")
     public ResponseEntity<MaterialRequestDTO> update(@PathVariable Long idMaterial, @RequestBody MaterialRequestDTO materialRequestDTO){
         Material material = materialService.update(idMaterial, materialRequestDTO);

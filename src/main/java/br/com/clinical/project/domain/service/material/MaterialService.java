@@ -3,8 +3,10 @@ package br.com.clinical.project.domain.service.material;
 import br.com.clinical.project.domain.model.material.Material;
 import br.com.clinical.project.api.exceptionhandler.ObjectNotFoundException;
 import br.com.clinical.project.api.model.material.MaterialRequestDTO;
+import br.com.clinical.project.domain.model.stockHistory.StockHistory;
 import br.com.clinical.project.domain.repository.material.MaterialRepository;
 import br.com.clinical.project.domain.exception.BusinessException;
+import br.com.clinical.project.domain.service.stockHistory.StockHistoryService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,15 @@ public class MaterialService {
 
     public static final String MATERIAL_NOT_FOUND = "Material não encontrado";
     public static final String EXISTS = " já existe";
+
     @Autowired
     MaterialRepository materialRepository;
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    StockHistoryService stockHistoryService;
 
     public Material findById(Long idMaterial){
         Optional<Material> material = materialRepository.findById(idMaterial);
@@ -51,6 +57,7 @@ public class MaterialService {
         Material material = findById(idMaterial);
         materialRequestDTO.setIdMaterial(material.getIdMaterial());
         material = materialRequestDTO.toEntity(modelMapper, materialRequestDTO);
+        stockHistoryService.save(material);
         return materialRepository.save(material);
     }
 
