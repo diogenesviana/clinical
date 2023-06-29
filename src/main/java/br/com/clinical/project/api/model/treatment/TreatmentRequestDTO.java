@@ -18,18 +18,18 @@ public class TreatmentRequestDTO {
     private String txDescription;
 
 
-    public TreatmentRequestDTO toDto(ModelMapper modelMapper, Treatment treatment){
+    public static TreatmentRequestDTO toDto(ModelMapper modelMapper, Treatment treatment){
         return modelMapper.map(treatment, TreatmentRequestDTO.class);
     }
 
-    public List<TreatmentRequestDTO> listToDTO (ModelMapper modelMapper, List<Treatment> treatments){
+    public static List<TreatmentRequestDTO> listToDTO (ModelMapper modelMapper, List<Treatment> treatments){
         return treatments.stream()
                 .map(treatment -> toDto(modelMapper, treatment))
                 .toList();
     }
 
-    public Treatment toEntity(ModelMapper modelMapper, TreatmentRequestDTO treatmentResquestDTO){
-        return modelMapper.map(treatmentResquestDTO, Treatment.class);
+    public Treatment toEntity(ModelMapper modelMapper, TreatmentRequestDTO treatmentRequestDTO){
+        return modelMapper.map(treatmentRequestDTO, Treatment.class);
     }
 
 }
