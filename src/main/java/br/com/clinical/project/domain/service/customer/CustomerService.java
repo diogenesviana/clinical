@@ -15,8 +15,10 @@ import java.util.Optional;
 @Service
 public class CustomerService {
 
-    public static String CUSTOMER_NOT_FOUND = "Cliente não encontrado";
+    public static final String CUSTOMER_NOT_FOUND = "Cliente não encontrado";
     public static final String EXISTS = " já existe no sistema";
+
+    public static final String EMAIL_EXISTS = "Email já foi utilizado";
 
     @Autowired
     CustomerRepository customerRepository;
@@ -41,7 +43,7 @@ public class CustomerService {
         if (customerOptional.isEmpty()) {
             return customerRepository.save(customerRequestDTO.toEntity(modelMapper, customerRequestDTO));
         } else {
-            throw new BusinessException(customerOptional.get().getTxCustomer() + EXISTS);
+            throw new BusinessException(EMAIL_EXISTS);
         }
 
     }
@@ -53,7 +55,7 @@ public class CustomerService {
             customer = customerRequestDTO.toEntity(modelMapper, customerRequestDTO);
             return customerRepository.save(customer);
         } else {
-            throw new BusinessException("Email já foi utilizado");
+            throw new BusinessException(EMAIL_EXISTS);
         }
     }
 
