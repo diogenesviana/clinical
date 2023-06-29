@@ -1,6 +1,9 @@
 package br.com.clinical.project.domain.service.material;
 
+import br.com.clinical.project.api.model.material.MaterialDTO;
+import br.com.clinical.project.api.model.stock.StockDTO;
 import br.com.clinical.project.domain.model.material.Material;
+import br.com.clinical.project.domain.model.stock.Stock;
 import br.com.clinical.project.domain.repository.material.MaterialRepository;
 import br.com.clinical.project.domain.exception.BusinessException;
 import br.com.clinical.project.api.exceptionhandler.ObjectNotFoundException;
@@ -14,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +61,6 @@ class MaterialServiceTest {
         assertEquals(Material.class, response.getClass());
         assertEquals(ID_MATERIAL, response.getIdMaterial());
         assertEquals(TX_MATERIAL, response.getTxMaterial());
-        assertEquals(QT_MATERIAL, response.getQtMaterial());
 
 
 
@@ -134,8 +137,8 @@ class MaterialServiceTest {
     }
 
     private void startMaterial(){
-        material = new Material(ID_MATERIAL, TX_MATERIAL, QT_MATERIAL);
-        materialOptional = Optional.of(new Material(ID_MATERIAL, TX_MATERIAL, QT_MATERIAL));
-        materialRequestDTO = new MaterialRequestDTO(ID_MATERIAL, TX_MATERIAL, QT_MATERIAL);
+        material = new Material(ID_MATERIAL, TX_MATERIAL, new Stock(ID_MATERIAL, material, QT_MATERIAL, LocalDateTime.now()));
+        materialOptional = Optional.of(new Material(ID_MATERIAL, TX_MATERIAL, new Stock(ID_MATERIAL, material, QT_MATERIAL, LocalDateTime.now())));
+        materialRequestDTO = new MaterialRequestDTO(ID_MATERIAL, TX_MATERIAL, new StockDTO(ID_MATERIAL, new MaterialDTO(ID_MATERIAL, TX_MATERIAL), QT_MATERIAL));
     }
 }

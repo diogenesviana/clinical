@@ -1,10 +1,15 @@
 package br.com.clinical.project.domain.model.treatment;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "treatment")
 public class Treatment {
 
         @Id

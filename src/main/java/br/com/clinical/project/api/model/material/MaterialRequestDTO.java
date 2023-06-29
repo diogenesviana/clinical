@@ -1,12 +1,15 @@
 package br.com.clinical.project.api.model.material;
 
+import br.com.clinical.project.api.model.stock.StockDTO;
 import br.com.clinical.project.domain.model.material.Material;
+import br.com.clinical.project.domain.model.stock.Stock;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -16,10 +19,10 @@ public class MaterialRequestDTO {
 
     private Long idMaterial;
     private String txMaterial;
-    private BigDecimal qtMaterial;
-
+    private StockDTO stock;
 
     public static MaterialRequestDTO toDto(ModelMapper modelMapper, Material material){
+
         return modelMapper.map(material, MaterialRequestDTO.class);
     }
 
