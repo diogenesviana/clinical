@@ -5,6 +5,7 @@ import br.com.clinical.project.api.exceptionhandler.ObjectNotFoundException;
 import br.com.clinical.project.api.model.material.MaterialRequestDTO;
 import br.com.clinical.project.domain.repository.material.MaterialRepository;
 import br.com.clinical.project.domain.exception.BusinessException;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,7 @@ public class MaterialService {
         return materialRepository.findAll();
     }
 
+    @Transactional
     public Material create(MaterialRequestDTO materialRequestDTO) {
         Optional<Material> materialOptional = findByTxMaterial(materialRequestDTO.getTxMaterial());
         if (materialOptional.isEmpty()) {
@@ -50,5 +52,9 @@ public class MaterialService {
         materialRequestDTO.setIdMaterial(material.getIdMaterial());
         material = materialRequestDTO.toEntity(modelMapper, materialRequestDTO);
         return materialRepository.save(material);
+    }
+
+    public void delete(Long idMaterial){
+        materialRepository.deleteById(idMaterial);
     }
 }
