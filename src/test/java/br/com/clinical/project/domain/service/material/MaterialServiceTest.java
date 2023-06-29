@@ -1,9 +1,8 @@
-package br.com.clinical.project.service.material;
+package br.com.clinical.project.domain.service.material;
 
 import br.com.clinical.project.domain.model.material.Material;
-import br.com.clinical.project.domain.service.material.MaterialService;
 import br.com.clinical.project.domain.repository.material.MaterialRepository;
-import br.com.clinical.project.api.exceptionhandler.BusinessException;
+import br.com.clinical.project.domain.exception.BusinessException;
 import br.com.clinical.project.api.exceptionhandler.ObjectNotFoundException;
 import br.com.clinical.project.api.model.material.MaterialRequestDTO;
 import org.junit.jupiter.api.BeforeEach;

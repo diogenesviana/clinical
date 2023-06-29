@@ -4,7 +4,7 @@ import br.com.clinical.project.domain.model.material.Material;
 import br.com.clinical.project.api.exceptionhandler.ObjectNotFoundException;
 import br.com.clinical.project.api.model.material.MaterialRequestDTO;
 import br.com.clinical.project.domain.repository.material.MaterialRepository;
-import br.com.clinical.project.api.exceptionhandler.BusinessException;
+import br.com.clinical.project.domain.exception.BusinessException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,7 @@ import java.util.Optional;
 public class MaterialService {
 
     public static final String MATERIAL_NOT_FOUND = "Material não encontrado";
+    public static final String EXISTS = " já existe";
     @Autowired
     MaterialRepository materialRepository;
 
