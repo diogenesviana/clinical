@@ -16,6 +16,7 @@ import java.util.Optional;
 public class MaterialService {
 
     public static final String MATERIAL_NOT_FOUND = "Material não encontrado";
+
     @Autowired
     MaterialRepository materialRepository;
 
