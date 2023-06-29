@@ -1,7 +1,7 @@
 package br.com.clinical.project.api.controller.Treatment;
 
 import br.com.clinical.project.domain.service.treatment.TreatmentService;
-import br.com.clinical.project.api.model.treatment.TreatmentResquestDTO;
+import br.com.clinical.project.api.model.treatment.TreatmentRequestDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +21,14 @@ public class TreatmentController {
     TreatmentService treatmentService;
 
     @GetMapping("/{idTreatment}")
-    public ResponseEntity<TreatmentResquestDTO> findbyId (@PathVariable Long idTreatment){
-        TreatmentResquestDTO dto = treatmentService.findById(idTreatment);
+    public ResponseEntity<TreatmentRequestDTO> findbyId (@PathVariable Long idTreatment){
+        TreatmentRequestDTO dto = treatmentService.findById(idTreatment);
         return ResponseEntity.ok(dto);
     }
     
     @GetMapping
-    public ResponseEntity<List<TreatmentResquestDTO>> findAll(){
-        List<TreatmentResquestDTO> dtoList = treatmentService.findAll();
+    public ResponseEntity<List<TreatmentRequestDTO>> findAll(){
+        List<TreatmentRequestDTO> dtoList = treatmentService.findAll();
         return ResponseEntity.ok(dtoList);
     }
 

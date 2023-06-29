@@ -1,5 +1,6 @@
 package br.com.clinical.project.api.exceptionhandler;
 
+import br.com.clinical.project.domain.exception.BusinessException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

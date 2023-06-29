@@ -1,7 +1,7 @@
 package br.com.clinical.project.domain.service.treatment;
 
 import br.com.clinical.project.domain.model.treatment.Treatment;
-import br.com.clinical.project.api.model.treatment.TreatmentResquestDTO;
+import br.com.clinical.project.api.model.treatment.TreatmentRequestDTO;
 import br.com.clinical.project.domain.repository.treatment.TreatmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,9 @@ public class TreatmentService {
     @Autowired
     ModelMapper modelMapper;
 
-    public TreatmentResquestDTO findById(Long idTreatment){
+    public TreatmentRequestDTO findById(Long idTreatment){
         Optional<Treatment> treatmentOptional = treatmentRepository.findById(idTreatment);
-        TreatmentResquestDTO treatmentResquestDTO = new TreatmentResquestDTO();
+        TreatmentRequestDTO treatmentResquestDTO = new TreatmentRequestDTO();
         if(treatmentOptional.isPresent()){
             Treatment treatment = treatmentOptional.get();
             return treatmentResquestDTO.toDto(modelMapper, treatment);
@@ -30,9 +30,9 @@ public class TreatmentService {
         return null;
     }
 
-    public List<TreatmentResquestDTO> findAll(){
-        List<TreatmentResquestDTO>  dtoList = new ArrayList<>();
-        TreatmentResquestDTO dto = new TreatmentResquestDTO();
+    public List<TreatmentRequestDTO> findAll(){
+        List<TreatmentRequestDTO>  dtoList = new ArrayList<>();
+        TreatmentRequestDTO dto = new TreatmentRequestDTO();
         List<Treatment> all = treatmentRepository.findAll();
         for(Treatment treatment : all){
             dtoList.add(dto.toDto(modelMapper, treatment));
